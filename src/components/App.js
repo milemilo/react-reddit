@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-const Home = () => (
-  <h1>Home Page</h1>
-)
+import Posts from './Posts'
 
 class App extends Component {
   render() {
@@ -11,7 +8,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/' component={Posts}/>
           </Switch>
         </BrowserRouter>
       </div>
