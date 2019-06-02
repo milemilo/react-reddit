@@ -51,11 +51,9 @@ class Posts extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props)
     axios
       .get(url)
       .then(res => {
-        console.log(res.data.data.children);
         this.setState({
           posts: res.data.data.children.filter(item => !item.data.distinguished)
         });
@@ -67,7 +65,6 @@ class Posts extends React.Component {
   render() {
     const { posts } = this.state;
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
-    console.log(posts);
     return (
       <StyledDiv>
         <h1 className="page-title">{prefix}</h1>
@@ -77,7 +74,6 @@ class Posts extends React.Component {
               className="col-xs-10 col-sm-12 col-md-6 col-lg-6 post start-xs"
               key={post.data.id}
             >
-            {console.log(post.data)}
               <div className="img-container">
                 {post.data.thumbnail.length > 0 &&
                 post.data.thumbnail !== "self" ? (
