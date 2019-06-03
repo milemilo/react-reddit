@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import queryString from 'query-string';
 
 const baseUrl = "http://www.reddit.com";
-const url = "https://www.reddit.com/r/pizza.json";
 
 const styles = {
   "& .page-title": {
@@ -51,6 +51,8 @@ class Posts extends React.Component {
     };
   }
   componentDidMount() {
+    const qs = queryString.parse(this.props.location.search);
+    const url = `${baseUrl}/r/${qs.searchTerm}.json`;
     axios
       .get(url)
       .then(res => {
