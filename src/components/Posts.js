@@ -39,7 +39,11 @@ const styles = {
   },
   "& .comments-container": {
     marginBottom: 15
-  }
+  },
+  "& .time": {
+    fontStyle: 'italic',
+    marginLeft: 5
+  },
 };
 
 const StyledDiv = styled.div`${styles}`;
