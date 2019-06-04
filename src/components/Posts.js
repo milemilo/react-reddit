@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import moment from 'moment';
 import queryString from 'query-string';
 
 const baseUrl = "http://www.reddit.com";
@@ -64,6 +65,13 @@ class Posts extends React.Component {
         console.log(err);
       });
   }
+  calculatePostTime(createdAt) {
+    const time = createdAt !== null && moment.unix(createdAt)
+    console.log(time)
+    const timePosted = createdAt !== null && time.fromNow()
+    console.log(timePosted)
+    return timePosted
+  }
   render() {
     const { posts } = this.state;
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
@@ -96,6 +104,7 @@ class Posts extends React.Component {
                 </h3>
                 <div className="author-container">
                   <span className="author">Posted by {post.data.author}</span>
+                  <span className="time">{this.calculatePostTime(post.data.created)}</span>
                 </div>
                 <div className="comments-container">
                   <i className="fas fa-comments" />
