@@ -1,5 +1,6 @@
 import React from "react";
 import { Dropdown } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import axios from "axios";
 import queryString from 'query-string';
@@ -45,7 +46,7 @@ const styles = {
   "& .image": {
     borderRadius: 5
   },
-  "& .language-selector": {
+  "& .nav-wrapper": {
     marginTop: 20,
   },
   "& .fa-comments": {
@@ -122,15 +123,20 @@ class Posts extends React.Component {
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
     return (
       <StyledDiv>
-        <div className="row center-xs">
-          <div className="col-xs-10">
-            <div className="end-xs language-selector">
-              <Dropdown
-                placeholder='Select Language'
-                selection
-                options={langOptions}
-                onChange={this.handleSelect}
-              />
+        <div className="row nav-wrapper">
+          <div className="col-xs-12">
+            <div className="row center-xs">
+              <div className="col-xs-5 start-xs">
+                <h3><Link to="/">Back to Home</Link></h3>
+              </div>
+              <div className="col-xs-5 end-xs">
+                <Dropdown
+                  placeholder='Select Language'
+                  selection
+                  options={langOptions}
+                  onChange={this.handleSelect}
+                />
+              </div>
             </div>
           </div>
         </div>
