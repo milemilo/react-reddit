@@ -48,7 +48,13 @@ class Home extends React.Component {
       <StyledDiv className="row middle-xs center-xs" style={{ height: 500 }}>
         <div className="col-xs">
           <h1>subReddit Search!</h1>
-          <Input className="search-input" value={searchValue} onChange={e => this.handleOnChange(e)} label='/r/' placeholder='subreddit name...' />
+          <Input
+            className="search-input"
+            value={searchValue}
+            onChange={e => this.handleOnChange(e)}
+            label='/r/'
+            placeholder='subreddit name...'
+          />
           <Button
             disabled={searchValue.length === 0}
             className="search-button"

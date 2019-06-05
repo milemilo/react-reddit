@@ -2,9 +2,9 @@ import React from "react";
 import { Dropdown } from 'semantic-ui-react'
 import styled from "styled-components";
 import axios from "axios";
-import moment from 'moment';
 import queryString from 'query-string';
 import translate from 'translate'
+import { calculatePostTime } from "../utils/helpers";
 
 translate.engine = 'yandex'
 // this should probably go somewhere else...
@@ -117,12 +117,6 @@ class Posts extends React.Component {
         console.log(err);
       });
   }
-  calculatePostTime(createdAt) {
-    const time = createdAt !== null && moment.unix(createdAt)
-    const timePosted = createdAt !== null && time.fromNow()
-    return timePosted
-  }
-
   render() {
     const { lang, posts } = this.state;
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
@@ -167,7 +161,7 @@ class Posts extends React.Component {
                 </h3>
                 <div className="author-container">
                   <span className="author">Posted by {post.data.author}</span>
-                  <span className="time">{this.calculatePostTime(post.data.created)}</span>
+                  <span className="time">{calculatePostTime(post.data.created)}</span>
                 </div>
                 <div className="comments-container">
                   <i className="fas fa-comments" />
