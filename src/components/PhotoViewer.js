@@ -68,7 +68,7 @@ class PhotoViewer extends React.Component {
 
     arrayShuffle(images)
     return(
-      <StyledDiv>
+      <StyledDiv data-test="photos-component">
         <div className="row">
           <div className="col-xs-12 nav-wrapper">
             <div className="row around-xs center-xs">

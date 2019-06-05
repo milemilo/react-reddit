@@ -122,7 +122,7 @@ class Posts extends React.Component {
     const { lang, posts } = this.state;
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
     return (
-      <StyledDiv>
+      <StyledDiv data-test="posts-component">
         <div className="row nav-wrapper">
           <div className="col-xs-12">
             <div className="row center-xs">

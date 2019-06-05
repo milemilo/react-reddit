@@ -9,7 +9,7 @@ jest.mock("axios");
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 describe("Posts component", () => {
-  it("tests mock axios get request", async () => {
+  test("tests mock axios get request", async () => {
     const response = {
       data: {
         data: {
@@ -32,10 +32,11 @@ describe("Posts component", () => {
     const wrapper = shallow(
       <Posts location={{search: '?searchTerm=pizza'}} />
     );
+    const postsComponent = wrapper.find("[data-test='posts-component']")
     const instance = wrapper.instance();
     await instance.fetchPosts();
+
+    expect(postsComponent.length).toEqual(1)
     expect(instance.state.posts).toEqual(response.data.data.children);
-    // expect(instance.state.prefix).toBe("r/Pizza");
-    // expect(instance.state.subreddit).toBe("Pizza");
   });
 });
