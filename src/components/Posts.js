@@ -1,25 +1,25 @@
 import React from "react";
-import { Dropdown } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { Dropdown } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import queryString from 'query-string';
-import translate from 'translate'
+import queryString from "query-string";
+import translate from "translate";
 import { calculatePostTime } from "../utils/helpers";
 
-translate.engine = 'yandex'
+translate.engine = "yandex";
 // this should probably go somewhere else...
-translate.key = 'trnsl.1.1.20190502T182808Z.e52ba92ecffb9eee.f9d03bb22ff9f9666857c6dcf49674d52979440a';
-translate.from = 'en'
+translate.key = "trnsl.1.1.20190502T182808Z.e52ba92ecffb9eee.f9d03bb22ff9f9666857c6dcf49674d52979440a";
+translate.from = "en";
 
 const baseUrl = "http://www.reddit.com";
 
 const langOptions = [
-  { key: 'us', value: 'English', flag: 'us', text: 'English' },
-  { key: 'cn', value: 'Chinese', flag: 'cn', text: 'Chinese' },
-  { key: 'jp', value: 'Japanese', flag: 'jp', text: 'Japanese' },
-  { key: 'rs', value: 'Russian', flag: 'rs', text: 'Russian' },
-]
+  { key: "us", value: "English", flag: "us", text: "English" },
+  { key: "cn", value: "Chinese", flag: "cn", text: "Chinese" },
+  { key: "jp", value: "Japanese", flag: "jp", text: "Japanese" },
+  { key: "rs", value: "Russian", flag: "rs", text: "Russian" }
+];
 
 const styles = {
   "& .page-title": {
@@ -47,7 +47,7 @@ const styles = {
     borderRadius: 5
   },
   "& .nav-wrapper": {
-    marginTop: 20,
+    marginTop: 20
   },
   "& .fa-comments": {
     marginRight: 5
@@ -59,12 +59,14 @@ const styles = {
     marginBottom: 15
   },
   "& .time": {
-    fontStyle: 'italic',
+    fontStyle: "italic",
     marginLeft: 5
-  },
+  }
 };
 
-const StyledDiv = styled.div`${styles}`;
+const StyledDiv = styled.div`
+  ${styles}
+`;
 
 class Posts extends React.Component {
   constructor(props) {
@@ -76,33 +78,33 @@ class Posts extends React.Component {
     };
   }
   handleSelect = (e, { value }) => {
-    this.setState({ lang: value, titles: [] })
-  }
+    this.setState({ lang: value, titles: [] });
+  };
   componentDidMount() {
     this.fetchPosts();
     this.fetchInterval = setInterval(() => {
       this.fetchPosts();
-      console.log('fetching')
+      console.log("fetching");
     }, 60000);
   }
   componentDidUpdate(prevProps, prevState) {
-    const titles = []
+    const titles = [];
     if (prevState.lang !== this.state.lang) {
       this.state.posts.map(post => {
-        (async() => {
+        (async () => {
           try {
-            const title = await translate(post.data.title, this.state.lang)
-            translate('post.data.title', { from: 'en', to: this.state.lang });
-            this.setState({ titles: [...this.state.titles, title] })
+            const title = await translate(post.data.title, this.state.lang);
+            translate("post.data.title", { from: "en", to: this.state.lang });
+            this.setState({ titles: [...this.state.titles, title] });
           } catch (err) {
             console.log(err);
           }
         })();
-      })
+      });
     }
   }
   componentWillUnmount() {
-    clearInterval(this.fetchInterval)
+    clearInterval(this.fetchInterval);
   }
   fetchPosts() {
     const qs = queryString.parse(this.props.location.search);
@@ -127,11 +129,13 @@ class Posts extends React.Component {
           <div className="col-xs-12">
             <div className="row center-xs">
               <div className="col-xs-5 start-xs">
-                <h3><Link to="/">Back to Home</Link></h3>
+                <h3>
+                  <Link to="/">Back to Home</Link>
+                </h3>
               </div>
               <div className="col-xs-5 end-xs">
                 <Dropdown
-                  placeholder='Select Language'
+                  placeholder="Select Language"
                   selection
                   options={langOptions}
                   onChange={this.handleSelect}
@@ -162,12 +166,14 @@ class Posts extends React.Component {
               <div className="details">
                 <h3 className="title">
                   <a href={`${baseUrl}${post.data.permalink}`}>
-                    {lang !== 'en' ? this.state.titles[i] : post.data.title}
+                    {lang !== "en" ? this.state.titles[i] : post.data.title}
                   </a>
                 </h3>
                 <div className="author-container">
                   <span className="author">Posted by {post.data.author}</span>
-                  <span className="time">{calculatePostTime(post.data.created)}</span>
+                  <span className="time">
+                    {calculatePostTime(post.data.created)}
+                  </span>
                 </div>
                 <div className="comments-container">
                   <i className="fas fa-comments" />
