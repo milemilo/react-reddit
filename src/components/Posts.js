@@ -45,6 +45,9 @@ const styles = {
   "& .image": {
     borderRadius: 5
   },
+  "& .language-selector": {
+    marginTop: 20,
+  },
   "& .fa-comments": {
     marginRight: 5
   },
@@ -72,7 +75,6 @@ class Posts extends React.Component {
     };
   }
   handleSelect = (e, { value }) => {
-    console.log(value)
     this.setState({ lang: value, titles: [] })
   }
   componentDidMount() {
@@ -128,7 +130,7 @@ class Posts extends React.Component {
       <StyledDiv>
         <div className="row center-xs">
           <div className="col-xs-10">
-            <div className="end-xs languageSelector">
+            <div className="end-xs language-selector">
               <Dropdown
                 placeholder='Select Language'
                 selection
