@@ -29,6 +29,11 @@ class Home extends React.Component {
       submittedSearchValue: ""
     }
   }
+  handleKeyPress = (e) => {
+    if (this.state.searchValue.length && e.keyCode === 13) {
+      this.handleSearch();
+    }
+  }
   handleSearch() {
     const { searchValue } = this.state;
     axios
@@ -52,10 +57,11 @@ class Home extends React.Component {
   render() {
     const { searchError, searchValue, submittedSearchValue } = this.state;
     return(
-      <StyledDiv className="row middle-xs center-xs" style={{ height: 500 }}>
+      <StyledDiv className="row middle-xs center-xs" style={{ height: 550 }}>
         <div className="col-xs">
           <h1>subReddit Search!</h1>
           <Input
+            onKeyDown={this.handleKeyPress}
             className="search-input"
             value={searchValue}
             onChange={e => this.handleOnChange(e)}
