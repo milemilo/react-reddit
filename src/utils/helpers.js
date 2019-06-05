@@ -7,5 +7,5 @@ export function calculatePostTime(createdAt) {
 };
 
 export function arrayShuffle(array) {
-  array.sort(() => Math.random() - 0.5);
+  return array.sort(() => Math.random() - 0.5);
 }
