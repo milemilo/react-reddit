@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Posts from './Posts'
 import Home from './Home'
+import PhotoViewer from './PhotoViewer'
 
 const NoMatch = () => (
   <h1>404 Not Found</h1>
-)
-
-const PhotoViewer = () => (
-  <h1>Photo Viewer</h1>
 )
 
 class App extends Component {
