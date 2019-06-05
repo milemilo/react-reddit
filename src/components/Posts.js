@@ -1,10 +1,24 @@
 import React from "react";
+import { Dropdown } from 'semantic-ui-react'
 import styled from "styled-components";
 import axios from "axios";
 import moment from 'moment';
 import queryString from 'query-string';
+import translate from 'translate'
+
+translate.engine = 'yandex'
+// this should probably go somewhere else...
+translate.key = 'trnsl.1.1.20190502T182808Z.e52ba92ecffb9eee.f9d03bb22ff9f9666857c6dcf49674d52979440a';
+translate.from = 'en'
 
 const baseUrl = "http://www.reddit.com";
+
+const langOptions = [
+  { key: 'us', value: 'English', flag: 'us', text: 'English' },
+  { key: 'cn', value: 'Chinese', flag: 'cn', text: 'Chinese' },
+  { key: 'jp', value: 'Japanese', flag: 'jp', text: 'Japanese' },
+  { key: 'rs', value: 'Russian', flag: 'rs', text: 'Russian' },
+]
 
 const styles = {
   "& .page-title": {
@@ -52,8 +66,14 @@ class Posts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      lang: "en",
+      posts: [],
+      titles: []
     };
+  }
+  handleSelect = (e, { value }) => {
+    console.log(value)
+    this.setState({ lang: value, titles: [] })
   }
   componentDidMount() {
     this.fetchPost();
@@ -61,6 +81,22 @@ class Posts extends React.Component {
       this.fetchPost();
       console.log('fetching')
     }, 60000);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const titles = []
+    if (prevState.lang !== this.state.lang) {
+      this.state.posts.map(post => {
+        (async() => {
+          try {
+            const title = await translate(post.data.title, this.state.lang)
+            translate('post.data.title', { from: 'en', to: this.state.lang });
+            this.setState({ titles: [...this.state.titles, title] })
+          } catch (err) {
+            console.log(err);
+          }
+        })();
+      })
+    }
   }
   componentWillUnmount() {
     clearInterval(this.fetchInterval)
@@ -84,11 +120,24 @@ class Posts extends React.Component {
     const timePosted = createdAt !== null && time.fromNow()
     return timePosted
   }
+
   render() {
-    const { posts } = this.state;
+    const { lang, posts } = this.state;
     const prefix = posts.length > 0 && posts[0].data.subreddit_name_prefixed;
     return (
       <StyledDiv>
+        <div className="row center-xs">
+          <div className="col-xs-10">
+            <div className="end-xs languageSelector">
+              <Dropdown
+                placeholder='Select Language'
+                selection
+                options={langOptions}
+                onChange={this.handleSelect}
+              />
+            </div>
+          </div>
+        </div>
         <h1 className="page-title">{prefix}</h1>
         <div className="row center-xs">
           {posts.slice(0, 25).map((post, i) => (
@@ -111,7 +160,7 @@ class Posts extends React.Component {
               <div className="details">
                 <h3 className="title">
                   <a href={`${baseUrl}${post.data.permalink}`}>
-                    {post.data.title}
+                    {lang !== 'en' ? this.state.titles[i] : post.data.title}
                   </a>
                 </h3>
                 <div className="author-container">
