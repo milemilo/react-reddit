@@ -79,9 +79,9 @@ class Posts extends React.Component {
     this.setState({ lang: value, titles: [] })
   }
   componentDidMount() {
-    this.fetchPost();
+    this.fetchPosts();
     this.fetchInterval = setInterval(() => {
-      this.fetchPost();
+      this.fetchPosts();
       console.log('fetching')
     }, 60000);
   }
@@ -104,7 +104,7 @@ class Posts extends React.Component {
   componentWillUnmount() {
     clearInterval(this.fetchInterval)
   }
-  fetchPost() {
+  fetchPosts() {
     const qs = queryString.parse(this.props.location.search);
     const url = `${baseUrl}/r/${qs.searchTerm}.json`;
     axios

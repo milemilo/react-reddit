@@ -11,7 +11,7 @@ const NoMatch = () => (
 class App extends Component {
   render() {
     return (
-      <div>
+      <div data-test="app-component">
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={Home}/>

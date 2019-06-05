@@ -5,6 +5,9 @@ import App from '../components/App'
 
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
-test('renders without crashing', () => {
+test('renders without error', () => {
   const wrapper = shallow(<App />)
+  const appComponent = wrapper.find("[data-test='app-component']");
+
+  expect(appComponent.length).toEqual(1)
 })

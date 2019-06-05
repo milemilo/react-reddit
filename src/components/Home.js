@@ -57,7 +57,7 @@ class Home extends React.Component {
   render() {
     const { searchError, searchValue, submittedSearchValue } = this.state;
     return(
-      <StyledDiv className="row middle-xs center-xs" style={{ height: 550 }}>
+      <StyledDiv data-test="home-component" className="row middle-xs center-xs" style={{ height: 550 }}>
         <div className="col-xs">
           <h1>subReddit Search!</h1>
           <Input
