@@ -56,6 +56,16 @@ class Posts extends React.Component {
     };
   }
   componentDidMount() {
+    this.fetchPost();
+    this.fetchInterval = setInterval(() => {
+      this.fetchPost();
+      console.log('fetching')
+    }, 60000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.fetchInterval)
+  }
+  fetchPost() {
     const qs = queryString.parse(this.props.location.search);
     const url = `${baseUrl}/r/${qs.searchTerm}.json`;
     axios
@@ -71,9 +81,7 @@ class Posts extends React.Component {
   }
   calculatePostTime(createdAt) {
     const time = createdAt !== null && moment.unix(createdAt)
-    console.log(time)
     const timePosted = createdAt !== null && time.fromNow()
-    console.log(timePosted)
     return timePosted
   }
   render() {

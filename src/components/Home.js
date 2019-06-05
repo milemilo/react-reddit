@@ -44,7 +44,6 @@ class Home extends React.Component {
   }
   render() {
     const { searchError, searchValue, submittedSearchValue } = this.state;
-    console.log(searchValue)
     return(
       <StyledDiv className="row middle-xs center-xs" style={{ height: 500 }}>
         <div className="col-xs">
