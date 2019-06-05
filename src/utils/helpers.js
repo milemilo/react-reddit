@@ -5,3 +5,7 @@ export function calculatePostTime(createdAt) {
   const timePosted = createdAt !== null && time.fromNow()
   return timePosted
 };
+
+export function arrayShuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}

@@ -1,5 +1,17 @@
 import React from 'react';
+import Gallery from "react-photo-gallery";
+import { arrayShuffle } from "../utils/helpers";
+import styled from 'styled-components';
 import axios from 'axios';
+
+const styles = {
+  "& .page-title": {
+    marginBottom: 20,
+    marginTop: 20
+  }
+}
+
+const StyledDiv = styled.div`${styles}`;
 
 class PhotoViewer extends React.Component {
   constructor(props){
@@ -16,7 +28,7 @@ class PhotoViewer extends React.Component {
       })
       .then((res) => {
         this.aggData(res.data.data.children)
-        return axios.get('http://www.reddit.com/r/food.json');
+        return axios.get('http://www.reddit.com/r/ramen.json');
       })
       .then((res) => {
         this.aggData(res.data.data.children)
@@ -31,16 +43,27 @@ class PhotoViewer extends React.Component {
         this.setState({
           images: [...this.state.images, {
             src: post.data.url,
-            title: post.data.title
+            title: post.data.title,
+            width: 1,
+            height: 1
           }]
         })
       }
     })
   }
   render() {
-    console.log(this.state.images)
+    const { images } = this.state;
+    // console.log(this.state.images)
+    arrayShuffle(images)
     return(
-      <h1>Photo Viewer</h1>
+      <StyledDiv>
+        <div className="row center-xs">
+          <div className="col-xs-12 page-title">
+            <h1>Photo Viewer</h1>
+          </div>
+        </div>
+        <Gallery photos={images} />
+      </StyledDiv>
     )
   }
 }
