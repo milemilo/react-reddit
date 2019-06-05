@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import axios from 'axios';
 
 const styles = {
+  '& .orText': {
+    marginTop: 25,
+    marginBottom: 25
+  },
   '& .searchError': {
     color: 'red',
     fontWeight: 'bold',
@@ -39,6 +43,9 @@ class Home extends React.Component {
         })
       });
   }
+  photosLink = () => {
+    this.props.history.push('/photos')
+  }
   handleOnChange(e) {
     this.setState({ searchValue: e.target.value })
   }
@@ -63,6 +70,16 @@ class Home extends React.Component {
             color='green'
           > Search!</Button>
           {searchError && <p className="searchError">{`We're sorry, r/${submittedSearchValue} doesn't exist. Please try again`}</p>}
+          <div>
+            <h5 className="orText">Or...</h5>
+            <Button
+              color='green'
+              content='Browse Photos'
+              icon='picture'
+              labelPosition='right'
+              onClick={this.photosLink}
+            />
+          </div>
         </div>
       </StyledDiv>
     )
