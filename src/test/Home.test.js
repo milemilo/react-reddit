@@ -6,7 +6,7 @@ import Home from '../components/Home'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 describe("Home component", () => {
-  test('renders without crashing', () => {
+  test('renders without error', () => {
     const wrapper = shallow(<Home />)
     const homeComponent = wrapper.find("[data-test='home-component']")
     expect(homeComponent.length).toEqual(1)

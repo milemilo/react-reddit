@@ -6,9 +6,9 @@ import PhotoViewer from '../components/PhotoViewer'
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 describe("PhotoViewer component", () => {
-  test('renders without crashing', () => {
+  test('renders without error', () => {
     const wrapper = shallow(<PhotoViewer />)
-    const homeComponent = wrapper.find("[data-test='photos-component']")
-    expect(homeComponent.length).toEqual(1)
+    const photosComponent = wrapper.find("[data-test='photos-component']")
+    expect(photosComponent.length).toEqual(1)
   })
 });
