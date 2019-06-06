@@ -9,12 +9,13 @@ import axios from "axios";
 const options = [
   { key: 1, text: "Pizza", value: "Pizza" },
   { key: 2, text: "Ramen", value: "ramen" },
-  { key: 3, text: "Sushi", value: "sushi" }
+  { key: 3, text: "Sushi", value: "sushi" },
+  { key: 4, text: "Food", value: "food" }
 ];
 
 const styles = {
   "& .nav-wrapper": {
-    marginBottom: 20,
+    marginBottom: 75,
     marginTop: 20
   }
 };
@@ -44,6 +45,10 @@ class PhotoViewer extends React.Component {
       })
       .then(res => {
         this.aggData(res.data.data.children);
+        return axios.get("http://www.reddit.com/r/food.json");
+      })
+      .then(res => {
+        this.aggData(res.data.data.children);
       })
       .catch(err => {
         console.log(err);
@@ -51,7 +56,7 @@ class PhotoViewer extends React.Component {
   }
   aggData(posts) {
     posts.map(post => {
-      if (post.data.thumbnail !== "" && post.data.thumbnail !== "self") {
+      if (post.data.url.includes('.jpg')) {
         this.setState({
           images: [
             ...this.state.images,
@@ -75,22 +80,18 @@ class PhotoViewer extends React.Component {
     arrayShuffle(images);
     return (
       <StyledDiv data-test="photos-component">
-        <div className="row">
-          <div className="col-xs-12 nav-wrapper">
-            <div className="row around-xs center-xs">
-              <div className="col-xs-3">
+        <div className="row nav-wrapper">
+          <div className="col-xs-12">
+            <div className="row center-xs">
+              <div className="col-xs-5 start-xs">
                 <h3>
                   <Link to="/">Back to Home</Link>
                 </h3>
               </div>
-              <div className="col-xs-3">
-                <h1>Photo Viewer</h1>
-              </div>
-              <div className="col-xs-3">
-                <h3>Filter by...</h3>
+              <div className="col-xs-5 end-xs">
                 <Dropdown
                   clearable
-                  placeholder="Select Group"
+                  placeholder="Filter by group...."
                   options={options}
                   selection
                   onChange={this.handleSelect}

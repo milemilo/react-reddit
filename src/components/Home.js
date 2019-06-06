@@ -79,7 +79,7 @@ class Home extends React.Component {
             className="search-button"
             onClick={() => this.handleSearch()}
             basic
-            color="green"
+            color="blue"
           >
             Search!
           </Button>
@@ -89,7 +89,7 @@ class Home extends React.Component {
           <div>
             <h5 className="orText">Or...</h5>
             <Button
-              color="green"
+              color="blue"
               content="Browse Photos"
               icon="picture"
               labelPosition="right"
