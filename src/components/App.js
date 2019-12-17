@@ -12,7 +12,7 @@ class App extends Component {
       <div data-test="app-component">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Posts} />
             <Route exact path="/posts" component={Posts} />
             <Route exact path="/photos" component={PhotoViewer} />
             <Route component={NoMatch} />
